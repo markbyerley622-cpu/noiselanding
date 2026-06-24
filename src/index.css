@@ -925,7 +925,7 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 }
 
 /* ── BackTransition: 3D pixel-scan logo reveal when leaving /security ───────── */
-.bxn{position:fixed;inset:0;z-index:200;background:#06070d;cursor:pointer;overflow:hidden}
+.bxn{position:fixed;inset:0;z-index:200;background:radial-gradient(60% 50% at 50% 46%,#0e1730 0%,#08080c 60%,#06070d 100%);cursor:pointer;overflow:hidden}
 .bxn-fade{position:absolute;inset:0}
 .bxn-canvas{position:absolute;inset:0}
 .bxn-canvas canvas{display:block;width:100%!important;height:100%!important}
