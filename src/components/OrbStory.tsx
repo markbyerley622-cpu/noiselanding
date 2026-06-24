@@ -91,7 +91,7 @@ export default function OrbStory({ onSignup }: { onSignup: () => void }) {
   const dissolve = stage === N - 1
 
   return (
-    <section className="os-story" id="top" ref={ref} style={{ height: `${N * 92}vh` }}>
+    <section className="os-story" id="top" ref={ref} style={{ height: `${N * 135}vh` }}>
       <div className="os-sticky">
         <div className="os-bg"><div className="os-grid" /><div className="os-glow" /></div>
 
