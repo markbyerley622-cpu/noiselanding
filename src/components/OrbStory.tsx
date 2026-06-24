@@ -58,8 +58,19 @@ export default function OrbStory({ onSignup }: { onSignup: () => void }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
-    const s = Math.min(N - 1, Math.max(0, Math.floor(p * N)))
-    if (s !== stage) setStage(s)
+    const exact = p * N
+    const target = Math.min(N - 1, Math.max(0, Math.floor(exact)))
+    setStage((prev) => {
+      if (target === prev) return prev
+      // fast scroll across several beats — just snap there
+      if (Math.abs(target - prev) > 1) return target
+      // adjacent beat: require being clearly past the boundary, so tiny scroll
+      // jitter at the edge can't flip the heavy overlays back and forth
+      const frac = exact - Math.floor(exact)
+      if (target > prev && frac < 0.12) return prev
+      if (target < prev && frac > 0.88) return prev
+      return target
+    })
   })
 
   // Mobile / reduced-motion: a calm vertical read with a static orb.
