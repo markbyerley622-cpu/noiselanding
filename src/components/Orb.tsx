@@ -157,7 +157,7 @@ export default function Orb({ stage, reduce }: { stage: number; reduce: boolean 
       </motion.div>
 
       {/* ── per-stage signature overlays ── */}
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence>
         {/* DASHBOARD — the "see everything" payoff, last */}
         {stage === 8 && (
           <motion.div className="os-layer" key="dash" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.5, ease: EASE }}>
