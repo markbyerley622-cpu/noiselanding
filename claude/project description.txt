@@ -1,0 +1,155 @@
+ I have everything I need. Here's the complete analysis for your landing page and onboarding flow — grounded in what's
+  actually built, not aspirational.
+
+  ---
+  What Noise Actually Is
+
+  Noise is a memory and intelligence layer that sits on top of every channel you communicate through. It connects to all
+  your messaging, email, social, calendar, and file channels, normalizes everything into one model, and then builds a
+  brain on top: it remembers every relationship, scores its health, forecasts decay, surfaces what needs you, and drafts
+  replies in your voice.
+
+  The critical positioning distinction you asked for:
+
+  ▎ It is NOT a unified inbox. A unified inbox just piles your messages into one list. Noise integrates every channel as
+  ▎ a substrate so it can do the intelligent layer on top — memory, relationship health, forecasting, action. The
+  ▎ integration is the foundation; the memory + intelligence is the product.
+
+  ⚠️ One thing to fix: your current README.md literally calls it an "AI-powered unified inbox." That contradicts the
+  positioning you want. Don't pull marketing copy from the README — it's the old framing. Lead with memory +
+  intelligence, treat channels as the foundation that makes it possible.
+
+  ---
+  The Three Layers (your core narrative)
+
+  This is the spine the whole landing page should hang on:
+
+  1. The Integration Layer — "Every channel, one substrate"
+
+  Noise connects to 14+ live channels end-to-end, normalizing them all into one UniversalMessage model. This isn't a
+  list of logos for show — every new channel instantly inherits identity resolution, memory, health scoring, and actions
+  with zero extra work. This is the foundation, not the pitch.
+
+  Fully wired today:
+  - Email: Gmail, Outlook, any IMAP/SMTP server
+  - Messaging: Slack, Microsoft Teams, Discord, Telegram, WhatsApp (via Twilio), SMS
+  - Social DMs: Instagram, Facebook Messenger
+  - Calendar: Google Calendar, Outlook Calendar
+  - Files: Google Drive, Dropbox
+  - CRM/Tasks: Salesforce, ClickUp
+
+  (Stubbed/roadmap, declared but not built: iMessage, LinkedIn, X, TikTok, Zendesk, Intercom, Notion, Linear — don't
+  claim these.)
+
+  2. The Memory Layer — "It never forgets, and knowledge outlives the person"
+
+  This is your differentiator. Noise indexes your files (Drive/Dropbox), analyzes email attachments, and embeds every
+  conversation into a searchable brain.
+
+  - Semantic memory (pgvector): ask in plain English, get real answers grounded in your actual messages and documents
+  - Document resolution: say "the Acme MSA" or "the payroll spreadsheet" and Noise ranks the real files by confidence —
+  no guessing
+  - Knowledge graph: tracks which companies, people, and topics matter and who's discussing what
+  - Investigation engine: "find every contract expiring in 30 days" → real aggregated answers, not a file dump
+  - The moat line: Human knowledge stays with the company — never lost when someone leaves.
+
+  3. The Intelligence Layer — "It tells you what's at risk before you'd notice"
+
+  Deterministic, explainable, not a black box.
+
+  - Relationship health scoring (0–100) from recency, volume, reciprocity, sentiment + business signals (overdue
+  invoices, stalled deals, slipping commitments)
+  - Relationship state engine: at risk · heating up · waiting on you · cooling down
+  - Forecasting: projects relationship health 14–30 days forward, predicts churn risk before it happens
+  - Key-person / bus-factor risk: "one employee is the single point of failure for $X in revenue"
+  - Executive brief & founder brief: your 60-second morning read — what changed, what's at risk, what to do today
+  - Learns your voice: drafts replies in your tone, learned from how you actually write
+
+  ---
+  Recommended Landing Page Headers (in order)
+
+  ┌─────┬────────────────┬────────────────────────────────────────┬────────────────────────────────────────────────┐
+  │  #  │    Section     │           Header (suggested)           │                  Sub-message                   │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │     │                │ "Your communication has a memory now." │ One line: connects every channel, then         │
+  │ 1   │ Hero           │  or "The brain on top of every         │ remembers, scores, and acts. CTA: Connect your │
+  │     │                │ conversation."                         │  email →                                       │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │     │                │ "Your relationships live in 12 apps.   │ Channels are scattered; context evaporates;    │
+  │ 2   │ The problem    │ Your memory of them lives nowhere."    │ knowledge walks out the door when people       │
+  │     │                │                                        │ leave.                                         │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │     │ Integration    │                                        │ Logo wall (the 14 live channels). Stress: not  │
+  │ 3   │ layer          │ "Every channel. One foundation."       │ a unified inbox — the substrate for            │
+  │     │                │                                        │ intelligence.                                  │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │     │                │ "It remembers everything — so you      │ Semantic search, document resolution,          │
+  │ 4   │ Memory layer   │ don't have to."                        │ knowledge graph. Show the "the Acme MSA"       │
+  │     │                │                                        │ example.                                       │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │     │ Intelligence   │ "Know what's at risk before it         │ Health scores, state engine, forecasting,      │
+  │ 5   │ layer          │ breaks."                               │ key-person risk. Show a relationship going     │
+  │     │                │                                        │ from green → at-risk.                          │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │ 6   │ Action layer   │ "From insight to done in one click."   │ Drafts replies in your voice, one ranked work  │
+  │     │                │                                        │ feed (Focus), founder brief.                   │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │     │                │                                        │ When someone leaves, the relationship and its  │
+  │ 7   │ The moat       │ "Knowledge that outlives the person."  │ history stay. This is what no unified inbox    │
+  │     │                │                                        │ can do.                                        │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │     │                │ "Connect once. The brain builds        │ 3 steps: Connect → Noise reads & maps → You    │
+  │ 8   │ How it works   │ itself."                               │ get your first brief. Mirror the real          │
+  │     │                │                                        │ onboarding.                                    │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │ 9   │ Trust/Honesty  │ "Explainable, not a black box."        │ Deterministic scoring, evidence for every      │
+  │     │                │                                        │ claim, encrypted at rest.                      │
+  ├─────┼────────────────┼────────────────────────────────────────┼────────────────────────────────────────────────┤
+  │ 10  │ CTA            │ "Connect your email. Meet your brain   │                                                │
+  │     │                │ in 60 seconds."                        │                                                │
+  └─────┴────────────────┴────────────────────────────────────────┴────────────────────────────────────────────────┘
+
+  ---
+  Onboarding Flow (mirror what's already built)
+
+  Your real flow is 3 connect steps → auto-build → first brief. Match it exactly so the landing page promise = the
+  product reality:
+
+  Step 1 — Connect (/welcome)
+
+  ▎ "Connect your email and Noise gets to work — reading what matters, drafting your replies, and quietly tracking your
+  ▎ promises."
+
+  - Continue with Google · Continue with Microsoft
+  - Footer reassurance: "Mail & calendar · secured, encrypted at rest"
+
+  Step 2 — Watch the brain build (auto, ~3.4s, real progress copy already in code)
+
+  ▎ "Reading your recent messages…" → "Mapping the people you talk to…" → "Spotting promises and deadlines…" → "Building
+  ▎ your first briefing…"
+
+  Step 3 — Guided setup stepper (/onboarding)
+
+  ▎ "A few minutes to your first executive brief."
+
+  - Connect → Build Brain → Invite Team → Collaborate (live progress, "X of Y done")
+  - Payoff CTA: "Open your executive brief"
+
+  Landing → Focus (/focus): the home surface answers one question — "What do I do next?"
+
+  Onboarding principle to sell: "Connect once. The brain builds itself." No manual setup, no rules, no tagging. The
+  value (first brief) lands in under a minute.
+
+  ---
+  Language Guardrails
+
+  Use: memory layer · intelligence layer · relationship health · knowledge graph · "knowledge outlives the person" ·
+  forecasting · "every channel, one brain" · chief of staff · explainable.
+
+  Avoid: ❌ "unified inbox" ❌ "all your messages in one place" ❌ "inbox zero" — these reduce you to a Franz/Beeper
+  clone and bury the actual product.
+
+  The one-sentence pitch:
+
+  ▎ "Noise connects every channel you communicate through, then builds a memory and intelligence layer on top — so you
+  ▎ never lose context, you see relationship risk before it costs you, and the knowledge stays even when people leave.

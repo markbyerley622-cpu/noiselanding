@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Noise — Brand & Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NOISE — Living Design System v2
+   Evolution of v1: the UI-v3 purple identity (#8B5CF6) promoted
+   into the official system as the INTERACTION color. ~85% of every
+   surface stays neutral; purple is rationed to actions, focus,
+   active states, links, data and hero moments.
+   ============================================================ */
+:root{
+  /* ---- NEUTRAL FOUNDATION (the 85% — unchanged DNA) ---- */
+  --bg:#08080C;        /* base */
+  --bg2:#0E0E14;       /* raised */
+  --s1:#14141C;        /* surface 1 */
+  --s2:#1C1C26;        /* surface 2 */
+  --s3:#24242F;        /* surface 3 — interactive rest (from v3) */
+  --bd:#262631;        /* border · subtle (solid) */
+  --bd2:#363643;       /* border · strong (solid) */
+  --line:rgba(255,255,255,.07);   /* hairline · adopted from v3 */
+  --line2:rgba(255,255,255,.12);  /* hairline · strong */
+
+  /* ---- NOISE PURPLE — promoted from UI v3 (#8B5CF6 = 500) ---- */
+  --noise-purple-50:#F5F3FF;
+  --noise-purple-100:#EDE9FE;
+  --noise-purple-200:#DDD6FE;
+  --noise-purple-300:#C4B5FD;
+  --noise-purple-400:#A78BFA;
+  --noise-purple-500:#8B5CF6;   /* CORE — the brand purple */
+  --noise-purple-600:#7C3AED;
+  --noise-purple-700:#6D28D9;
+  --noise-purple-800:#5B21B6;
+  --noise-purple-900:#4C1D95;
+
+  /* signal gradient endpoints (hero only) */
+  --blue:#3BA0FF;   /* cool accent — kept from v1, lives in the orb & data */
+  --indigo:#6366F1; --violet:#8B5CF6; --magenta:#D946EF;
+  --orb-core:#BFC4FF;  /* near-white orb core */
+
+  /* ---- ROLE ALIASES (use these, not raw scale, in components) ---- */
+  --accent:var(--noise-purple-500);
+  --accent-hover:var(--noise-purple-400);   /* brighter on dark = "lift" */
+  --accent-press:var(--noise-purple-600);
+  --accent-weak:rgba(139,92,246,.14);
+  --accent-line:rgba(139,92,246,.38);
+  --focus:rgba(139,92,246,.5);
+
+  /* ---- TEXT ---- */
+  --t1:#F4F4F8; --t2:#A8A8B8; --t3:#6E6E80;
+  --link:var(--noise-purple-400);
+
+  /* ---- SEMANTIC STATUS (refined to v3 — softer, more mature) ---- */
+  --ok:#34D399; --warn:#FBBF24; --err:#FB7185; --info:var(--blue);
+
+  /* ---- GRADIENTS ---- */
+  /* signal gradient spans the full brand spectrum: blue → indigo → violet → magenta */
+  --grad:linear-gradient(120deg,var(--blue),var(--indigo) 32%,var(--violet) 64%,var(--magenta));
+  --grad-soft:linear-gradient(135deg,rgba(139,92,246,.16),rgba(217,70,239,.05));
+
+  /* ---- PURPLE GLOW SYSTEM (rationed) ---- */
+  --glow-sm:0 8px 24px -12px rgba(139,92,246,.55);
+  --glow-md:0 16px 40px -16px rgba(139,92,246,.60);
+  --glow-lg:0 30px 80px -28px rgba(139,92,246,.65);
+
+  /* ---- NEUTRAL ELEVATION SHADOWS (default for depth) ---- */
+  --sh-1:0 1px 2px rgba(0,0,0,.4);
+  --sh-2:0 8px 24px -12px rgba(0,0,0,.6);
+  --sh-3:0 24px 60px -22px rgba(0,0,0,.75);
+
+  /* ---- RADII ---- */
+  --r-sm:10px; --r-md:14px; --r-lg:18px; --r-xl:22px;
+
+  /* ---- SPACING (4px base) ---- */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px;
+  --sp-6:32px; --sp-7:48px; --sp-8:64px; --sp-9:80px; --sp-10:96px;
+
+  /* ---- MOTION ---- */
+  --ease:cubic-bezier(.2,.8,.2,1);     /* calm, slightly overdamped */
+  --ease-in:cubic-bezier(.4,0,.2,1);
+  --dur-1:.12s; --dur-2:.18s; --dur-3:.32s; --dur-4:.6s;
+
+  --disp:'Space Grotesk',sans-serif;--text:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:var(--text);-webkit-font-smoothing:antialiased;line-height:1.5;letter-spacing:-.011em}
+/* fine grain overlay — kept from v1 */
+body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.page{max-width:1180px;margin:0 auto;padding:0 56px}
+.disp{font-family:var(--disp)}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mono{font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.02em}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--link)}
+.note{font-size:13px;color:var(--t3);margin-top:10px;line-height:1.6;max-width:640px}
+.note b{color:var(--t2);font-weight:600}
+.usage{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:10px;line-height:1.7;border-left:2px solid var(--accent-line);padding-left:12px}
+.usage b{color:var(--link);font-weight:500}
+
+/* waveform logo */
+.wave{display:inline-flex;align-items:flex-end;gap:3px}
+.wave i{width:var(--w,4px);border-radius:3px;background:var(--grad);display:block}
+
+/* section frame */
+.block{padding:80px 0;border-bottom:1px solid var(--bd)}
+.block .num{font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.1em}
+.block h2{font-family:var(--disp);font-size:30px;font-weight:600;letter-spacing:-.02em;margin:8px 0 6px}
+.block .lead{color:var(--t2);font-size:16px;max-width:640px;margin-bottom:40px}
+.sub-h{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin:38px 0 16px}
+.sub-h:first-of-type{margin-top:0}
+
+/* COVER */
+.cover{min-height:560px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.cover .glow{position:absolute;width:760px;height:760px;right:-200px;top:-220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,246,.30),rgba(217,70,239,.07) 45%,transparent 70%);filter:blur(44px)}
+.cover .orb{position:absolute;width:340px;height:340px;right:30px;top:90px;border-radius:50%;filter:blur(4px);
+  background:radial-gradient(circle at 50% 42%,#BFC4FF,#6E63FF 34%,#3BA0FF 64%,transparent 78%)}
+.cover h1{font-family:var(--disp);font-size:84px;line-height:.98;letter-spacing:-.035em;font-weight:700;position:relative}
+.cover .tag{font-family:var(--disp);font-size:22px;color:var(--t2);margin-top:20px;position:relative}
+.cover .meta{margin-top:46px;display:flex;gap:40px;position:relative;flex-wrap:wrap}
+.cover .meta div b{font-family:var(--mono);font-size:12px;color:var(--t3);display:block;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.cover .meta div span{font-size:15px}
+
+/* swatches */
+.swatchgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.sw{border-radius:14px;overflow:hidden;border:1px solid var(--bd);background:var(--s1)}
+.sw .chip{height:88px}
+.sw .info{padding:11px 12px}
+.sw .info b{font-size:13px;display:block;margin-bottom:2px}
+.sw .info .hex{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.sw .info .tok{font-family:var(--mono);font-size:10.5px;color:var(--link);display:block;margin-top:4px}
+.scale10{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+.scale10 .s{border-radius:10px;overflow:hidden;border:1px solid var(--bd)}
+.scale10 .s .c{height:64px}
+.scale10 .s .n{font-family:var(--mono);font-size:10px;padding:7px 6px 3px;color:var(--t2)}
+.scale10 .s .x{font-family:var(--mono);font-size:9.5px;padding:0 6px 8px;color:var(--t3)}
+.gradbar{height:120px;border-radius:16px;background:var(--grad);position:relative;border:1px solid var(--bd2)}
+.gradbar .lab{position:absolute;bottom:12px;left:16px;font-family:var(--mono);font-size:12px;color:#fff;background:rgba(0,0,0,.34);padding:5px 10px;border-radius:8px}
+.semrow{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap}
+.sem{flex:1;min-width:150px;border:1px solid var(--bd);border-radius:12px;padding:14px;display:flex;align-items:center;gap:10px;background:var(--s1)}
+.sem .d{width:16px;height:16px;border-radius:5px}
+.sem b{font-size:13px}.sem .hex{font-family:var(--mono);font-size:11px;color:var(--t3);margin-left:auto}
+
+/* type specimen */
+.typecols{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.typecard{border:1px solid var(--bd);border-radius:18px;padding:30px;background:var(--bg2)}
+.typecard .face{font-size:13px;font-family:var(--mono);color:var(--link);margin-bottom:18px}
+.typecard .big{font-size:72px;line-height:1;letter-spacing:-.03em;margin-bottom:10px}
+.typecard .alpha{font-size:18px;color:var(--t2);letter-spacing:.02em;word-spacing:2px}
+.typecard .role{font-size:14px;color:var(--t3);margin-top:18px}
+.scale{margin-top:34px;border-top:1px solid var(--bd);padding-top:26px;display:flex;flex-direction:column;gap:16px}
+.scale .r{display:flex;align-items:baseline;gap:20px}
+.scale .r .nm{font-family:var(--mono);font-size:11px;color:var(--t3);width:150px;flex:0 0 150px}
+.scale .r .ex{font-family:var(--disp);letter-spacing:-.02em;white-space:nowrap;overflow:hidden}
+.para{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.para p{color:var(--t2);font-size:15px;line-height:1.65;max-width:480px}
+.para .nums{font-variant-numeric:tabular-nums;font-family:var(--disp);font-size:15px}
+.textroles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.troll{border:1px solid var(--bd);border-radius:12px;padding:18px;background:var(--bg2)}
+.troll .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+
+/* spacing + grid */
+.spaces{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.spaces .sp{text-align:center}
+.spaces .sp .bar{background:var(--accent-weak);border:1px solid var(--accent-line);border-radius:6px;width:36px}
+.spaces .sp .v{font-family:var(--mono);font-size:10.5px;color:var(--t3);margin-top:8px}
+.gridviz{border:1px solid var(--bd);border-radius:16px;background:var(--bg2);padding:18px;display:grid;grid-template-columns:repeat(12,1fr);gap:14px;height:120px}
+.gridviz div{background:var(--accent-weak);border:1px solid var(--accent-line);border-radius:7px}
+.bp{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.bp .b{border:1px solid var(--bd);border-radius:12px;padding:14px 16px;background:var(--bg2)}
+.bp .b b{font-family:var(--disp);font-size:16px}.bp .b span{font-family:var(--mono);font-size:11px;color:var(--t3);display:block;margin-top:4px}
+
+/* orb showcase */
+.orbrow{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.orbcard{border:1px solid var(--bd);border-radius:18px;padding:34px;background:var(--bg2);display:flex;flex-direction:column;align-items:center;text-align:center}
+.bigorb{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 50% 42%,#BFC4FF,#6E63FF 34%,#3BA0FF 64%,transparent 80%);filter:blur(2px);margin-bottom:22px}
+.orbcard b{font-size:15px;font-family:var(--disp)}
+.orbcard small{color:var(--t3);font-size:13px;margin-top:6px}
+.noiseSig{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:26px;margin-top:8px}
+.noiseBox{height:150px;border-radius:16px;border:1px solid var(--bd);position:relative;overflow:hidden;background:var(--s1)}
+.noiseBox.n .c{position:absolute;width:7px;height:7px;border-radius:2px;background:var(--t3);opacity:.5}
+.noiseBox.s{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(139,92,246,.14),transparent 70%)}
+.sigwave{display:flex;align-items:center;gap:4px}
+.sigwave i{width:5px;border-radius:3px;background:var(--grad)}
+.arrow{font-size:26px;color:var(--link)}
+
+/* logo lockups */
+.lockrow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.lock{border:1px solid var(--bd);border-radius:16px;height:150px;display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--disp);font-weight:700;font-size:26px}
+.lock.light{background:#F4F4F8;color:#08080C}
+.lock.mono i{background:#F4F4F8!important}
+.lockcap{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:8px;text-align:center}
+
+/* ============ COMPONENTS ============ */
+.kit{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.kitcard{border:1px solid var(--bd);border-radius:18px;padding:26px;background:var(--bg2)}
+.kitcard.full{grid-column:1/-1}
+.kitcard .h{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:18px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.row.tight{gap:8px}
+.colw{display:flex;flex-direction:column;gap:12px}
+
+/* BUTTONS — full variant + state matrix */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:11px 18px;border-radius:11px;
+  border:1px solid transparent;font-family:var(--text);transition:transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease),background var(--dur-2) var(--ease),border-color var(--dur-2) var(--ease),filter var(--dur-2) var(--ease);cursor:pointer;line-height:1}
+.btn:active{transform:translateY(0)}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+
+/* primary = solid purple, the one true CTA color */
+.btn-primary{background:var(--accent);color:#fff;box-shadow:var(--glow-sm)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:var(--glow-md)}
+.btn-primary:active{background:var(--accent-press);box-shadow:var(--glow-sm)}
+.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus),var(--glow-sm)}
+/* hero-only gradient CTA */
+.btn-hero{background:var(--grad);color:#fff;box-shadow:var(--glow-md)}
+.btn-hero:hover{transform:translateY(-1px);filter:brightness(1.08);box-shadow:var(--glow-lg)}
+/* secondary = neutral surface */
+.btn-secondary{background:var(--s2);color:var(--t1);border-color:var(--bd)}
+.btn-secondary:hover{background:var(--s3);border-color:var(--bd2)}
+.btn-secondary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+/* ghost = transparent */
+.btn-ghost{color:var(--t1)}
+.btn-ghost:hover{background:rgba(255,255,255,.05)}
+.btn-ghost:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+/* outline = purple border, purple text */
+.btn-outline{color:var(--link);border-color:var(--accent-line)}
+.btn-outline:hover{background:var(--accent-weak);border-color:var(--accent)}
+.btn-outline:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+/* danger / success */
+.btn-danger{background:rgba(251,113,133,.14);color:#FFC2CC;border-color:rgba(251,113,133,.4)}
+.btn-danger:hover{background:rgba(251,113,133,.22)}
+.btn-success{background:rgba(52,211,153,.14);color:#9DEBC9;border-color:rgba(52,211,153,.4)}
+.btn-success:hover{background:rgba(52,211,153,.22)}
+.btn[disabled],.btn.is-disabled{opacity:.4;pointer-events:none;box-shadow:none;filter:saturate(.6)}
+.statetag{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:64px}
+
+/* PILLS / STATUS */
+.pill{font-size:12px;font-weight:600;padding:4px 11px;border-radius:20px;display:inline-flex;align-items:center;gap:6px}
+.pill-grad{background:var(--grad);color:#fff}
+.pill-accent{color:var(--link);background:var(--accent-weak);border:1px solid var(--accent-line)}
+.pill-red{color:#FFB3BD;background:rgba(251,113,133,.14)}
+.pill-amber{color:#FFD98A;background:rgba(251,191,36,.14)}
+.pill-green{color:#9DEBC9;background:rgba(52,211,153,.14)}
+.pill-soft{color:var(--t2);background:var(--s2);border:1px solid var(--bd)}
+
+/* FORMS */
+.fieldlbl{font-size:11px;font-weight:600;color:var(--t2);display:block;margin-bottom:7px}
+.inp{background:var(--s1);border:1px solid var(--bd);border-radius:11px;padding:11px 14px;color:var(--t1);font-size:14px;width:100%;font-family:var(--text);transition:border-color var(--dur-2),box-shadow var(--dur-2)}
+.inp::placeholder{color:var(--t3)}
+.inp:hover{border-color:var(--bd2)}
+.inp:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--focus)}
+.inp.focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--focus)}
+textarea.inp{resize:vertical;min-height:84px;line-height:1.5}
+select.inp{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' stroke='%236C6C7A' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.helper{font-size:11px;color:var(--t3);margin-top:6px}
+.helper.err{color:#FFB3BD}
+
+/* switch */
+.switch{width:44px;height:26px;border-radius:20px;background:var(--s3);border:1px solid var(--bd2);position:relative;cursor:pointer;transition:background var(--dur-2),border-color var(--dur-2);flex:none}
+.switch i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--t2);transition:transform var(--dur-2) var(--ease),background var(--dur-2)}
+.switch.on{background:var(--accent);border-color:var(--accent)}
+.switch.on i{transform:translateX(18px);background:#fff}
+.switch:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+/* checkbox */
+.cbx{width:20px;height:20px;border-radius:6px;border:1px solid var(--bd2);background:var(--s1);display:grid;place-items:center;flex:none;cursor:pointer;transition:.15s}
+.cbx svg{width:12px;height:12px;stroke:#fff;stroke-width:2.4;fill:none;opacity:0;transition:.15s}
+.cbx.on{background:var(--accent);border-color:var(--accent)}
+.cbx.on svg{opacity:1}
+.cbx:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus)}
+/* radio */
+.rdo{width:20px;height:20px;border-radius:50%;border:1px solid var(--bd2);background:var(--s1);display:grid;place-items:center;flex:none;cursor:pointer;transition:.15s}
+.rdo i{width:9px;height:9px;border-radius:50%;background:var(--accent);transform:scale(0);transition:transform var(--dur-2) var(--ease)}
+.rdo.on{border-color:var(--accent)}
+.rdo.on i{transform:scale(1)}
+.optline{display:flex;align-items:center;gap:11px;font-size:13.5px;color:var(--t2);padding:7px 0}
+/* segmented */
+.seg{display:inline-flex;gap:6px;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:5px}
+.seg button{font-size:13px;font-weight:600;color:var(--t3);padding:8px 16px;border-radius:8px;transition:.15s;background:none;border:none;cursor:pointer;font-family:var(--text)}
+.seg button.on{background:var(--s3);color:var(--t1);box-shadow:inset 0 0 0 1px var(--bd2)}
+
+/* CARDS — 5 variants */
+.cardgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.uic{border-radius:var(--r-md);padding:18px;position:relative;overflow:hidden;transition:transform var(--dur-2) var(--ease),border-color var(--dur-2)}
+.uic .ct{font-size:14px;font-weight:650}
+.uic .cs{color:var(--t3);font-size:12.5px;margin-top:4px;line-height:1.5}
+.uic .cv{font-family:var(--mono);font-size:10px;color:var(--link);position:absolute;top:14px;right:14px;letter-spacing:.04em}
+.uic-standard{background:var(--s1);border:1px solid var(--bd)}
+.uic-elevated{background:var(--s1);border:1px solid var(--bd);box-shadow:var(--sh-3)}
+.uic-glass{background:rgba(28,28,38,.55);border:1px solid var(--line2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.uic-feature{background:var(--s1);border:1px solid var(--bd)}
+.uic-feature::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% -10%,rgba(139,92,246,.14),transparent 60%);pointer-events:none}
+.uic-feature:hover{border-color:var(--accent-line)}
+.uic-premium{background:linear-gradient(180deg,#16161E,#0E0E14);box-shadow:var(--glow-md)}
+.uic-premium::after{content:"";position:absolute;inset:0;border-radius:var(--r-md);padding:1px;
+  background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.85;pointer-events:none}
+.uic-premium:hover{transform:translateY(-2px);box-shadow:var(--glow-lg)}
+
+/* NAVIGATION */
+.navdemo{display:grid;grid-template-columns:240px 1fr;gap:18px}
+.topnav{grid-column:1/-1;display:flex;align-items:center;gap:16px;background:linear-gradient(180deg,rgba(14,14,20,.85),rgba(14,14,20,.4));backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;padding:0 16px;height:58px}
+.topnav .brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:17px;letter-spacing:-.03em}
+.topnav .tabs{display:flex;gap:4px;margin-left:14px}
+.topnav .tabs a{font-size:13.5px;font-weight:500;color:var(--t2);padding:8px 12px;border-radius:9px;position:relative;cursor:pointer}
+.topnav .tabs a:hover{background:rgba(255,255,255,.05);color:var(--t1)}
+.topnav .tabs a.on{color:var(--t1)}
+.topnav .tabs a.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;border-radius:2px;background:var(--grad)}
+.topnav .sp{flex:1}
+.sidenav{border:1px solid var(--bd);border-radius:14px;background:var(--bg2);padding:12px 10px;display:flex;flex-direction:column;gap:2px}
+.sidenav .lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:12px 10px 5px}
+.navitem{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:10px;color:var(--t2);font-size:13.5px;font-weight:500;position:relative;cursor:pointer;transition:.15s}
+.navitem svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;opacity:.85}
+.navitem:hover{background:rgba(255,255,255,.04);color:var(--t1)}
+.navitem.active{background:var(--s2);color:var(--t1);box-shadow:inset 0 0 0 1px var(--bd)}
+.navitem.active::before{content:"";position:absolute;left:-10px;top:50%;transform:translateY(-50%);width:3px;height:18px;border-radius:3px;background:var(--grad)}
+.navitem .badge{margin-left:auto;font-size:11px;font-weight:650;color:var(--link);background:var(--accent-weak);border:1px solid var(--accent-line);border-radius:999px;padding:1px 8px}
+.mobilenav{display:flex;gap:6px;border:1px solid var(--bd);border-radius:16px;background:var(--bg2);padding:8px}
+.mobilenav a{flex:1;text-align:center;font-size:10.5px;font-weight:600;color:var(--t3);padding:8px 4px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.mobilenav a svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7}
+.mobilenav a.on{color:var(--link);background:var(--accent-weak)}
+
+/* icon style */
+.icons{display:flex;gap:18px;flex-wrap:wrap}
+.ico{width:54px;height:54px;border-radius:13px;border:1px solid var(--bd);background:var(--s1);display:grid;place-items:center}
+.ico svg{width:24px;height:24px;stroke:var(--link);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* effects */
+.fxgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fx{border:1px solid var(--bd);border-radius:16px;padding:24px;background:var(--bg2);min-height:150px;display:flex;flex-direction:column}
+.fx .demo{flex:1;display:grid;place-items:center;margin-bottom:14px;min-height:80px}
+.fx b{font-size:13.5px;font-family:var(--disp)}
+.fx small{color:var(--t3);font-size:11.5px;margin-top:4px;line-height:1.5}
+.glowball{width:64px;height:64px;border-radius:50%;background:var(--accent);box-shadow:var(--glow-lg)}
+.glassball{width:120px;height:70px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid var(--line2);backdrop-filter:blur(8px)}
+.focusball{width:120px;height:44px;border-radius:11px;background:var(--s2);border:1px solid var(--accent);box-shadow:0 0 0 3px var(--focus)}
+
+/* radii */
+.radii{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.radii div{background:var(--s2);border:1px solid var(--bd2)}
+.radii .cap{font-family:var(--mono);font-size:10px;color:var(--t3);text-align:center;margin-top:6px}
+
+/* states matrix */
+.statematrix{display:grid;grid-template-columns:auto repeat(5,1fr);gap:12px;align-items:center}
+.statematrix .head{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);text-align:center}
+.statematrix .rl{font-family:var(--mono);font-size:11px;color:var(--t2)}
+
+/* voice */
+.voice{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.vcol{border:1px solid var(--bd);border-radius:16px;padding:24px;background:var(--bg2)}
+.vcol h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.vdo h4{color:var(--ok)}.vdont h4{color:var(--err)}
+.vcol p{font-size:14px;color:var(--t2);padding:9px 0;border-top:1px solid var(--bd)}
+.vcol p:first-of-type{border-top:0}
+.principles{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.prin{border:1px solid var(--bd);border-radius:14px;padding:20px;background:var(--bg2)}
+.prin b{font-family:var(--disp);font-size:17px}.prin small{display:block;color:var(--t3);font-size:13px;margin-top:6px}
+
+/* a11y */
+.a11y{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.a11ycard{border:1px solid var(--bd);border-radius:14px;padding:20px;background:var(--bg2)}
+.a11ycard h4{font-family:var(--disp);font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.contrastrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--bd);font-size:13px}
+.contrastrow:first-of-type{border-top:0}
+.contrastrow .swat{width:26px;height:26px;border-radius:7px;flex:none;border:1px solid var(--line2)}
+.contrastrow .ratio{margin-left:auto;font-family:var(--mono);font-size:11px}
+.pass{color:var(--ok)}.fail{color:var(--err)}
+.do-dont{display:flex;gap:10px;align-items:flex-start;padding:9px 0;font-size:13px;color:var(--t2);border-top:1px solid var(--bd)}
+.do-dont:first-of-type{border-top:0}
+.do-dont .m{font-weight:700;flex:none}
+.do-dont .m.y{color:var(--ok)}.do-dont .m.n{color:var(--err)}
+
+/* product examples */
+.prodgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.appwin{border:1px solid var(--bd);border-radius:18px;overflow:hidden;background:var(--bg2)}
+.appbar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--bd)}
+.appbar .dots{display:flex;gap:6px}.appbar .dots i{width:10px;height:10px;border-radius:50%;background:var(--s3);display:block}
+.appbar .ttl{font-size:12px;color:var(--t3);font-family:var(--mono);margin-left:6px}
+.appbody{padding:20px}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:15px;position:relative;overflow:hidden}
+.kpi.hot::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 130% at 100% 0,rgba(139,92,246,.16),transparent 55%);pointer-events:none}
+.kpi .k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.kpi .v{font-size:30px;font-weight:800;letter-spacing:-.03em;margin-top:9px;font-variant-numeric:tabular-nums}
+.kpi .dlt{font-size:11.5px;font-weight:600;margin-top:7px}
+.kpi .dlt.up{color:var(--ok)}.kpi .dlt.down{color:var(--err)}
+.feedline{display:flex;gap:11px;padding:12px 0;border-top:1px solid var(--bd)}
+.feedline:first-child{border-top:0}
+.feedline .fd{width:7px;height:7px;border-radius:50%;margin-top:6px;flex:none;background:var(--accent)}
+.feedline .ft{font-size:13px;font-weight:550}
+.feedline .fw{font-size:11px;color:var(--t3);margin-top:3px}
+.railcard{border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,rgba(139,92,246,.05),transparent 24%),var(--bg2);padding:20px}
+.railhead{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.orbspin{width:38px;height:38px;border-radius:50%;flex:none;position:relative;background:conic-gradient(from 0deg,var(--blue),var(--indigo),var(--magenta),var(--violet),var(--blue));animation:spin 9s linear infinite}
+.orbspin::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg2);box-shadow:inset 0 0 14px rgba(139,92,246,.6)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.askmini{display:flex;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--bd2);border-radius:13px;padding:6px 6px 6px 14px;transition:.18s;margin-top:14px}
+.askmini:focus-within{border-color:var(--accent);box-shadow:var(--glow-sm)}
+.askmini input{flex:1;background:none;border:none;outline:none;color:var(--t1);font-size:13.5px;padding:8px 0;font-family:var(--text)}
+.askmini input::placeholder{color:var(--t3)}
+.askmini .send{width:34px;height:34px;border-radius:10px;background:var(--accent);display:grid;place-items:center;color:#fff;flex:none;box-shadow:var(--glow-sm);cursor:pointer}
+
+.foot{padding:40px 0 70px;color:var(--t3);font-family:var(--mono);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media(max-width:920px){
+  .page{padding:0 28px}
+  .cover h1{font-size:60px}
+  .kit,.typecols,.voice,.a11y,.principles{grid-template-columns:1fr}
+  .cardgrid,.fxgrid,.textroles{grid-template-columns:1fr}
+  .swatchgrid{grid-template-columns:repeat(3,1fr)}
+  .scale10{grid-template-columns:repeat(5,1fr)}
+  .prodgrid,.navdemo{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:1fr}
+}
+</style></head>
+<body>
+
+<!-- COVER -->
+<section class="cover"><div class="page">
+  <div class="glow"></div><div class="orb"></div>
+  <div class="kicker" style="position:relative">Brand &amp; Design System · v2 · Purple identity</div>
+  <h1 class="disp">Noise<span class="grad-text">.</span></h1>
+  <div class="tag">Turn the noise into <span class="grad-text">signal</span>.</div>
+  <div class="meta">
+    <div><b>Category</b><span>AI chief of staff</span></div>
+    <div><b>Personality</b><span>Calm · Premium · Signal-rich</span></div>
+    <div><b>Accent</b><span>Noise Purple · #8B5CF6</span></div>
+    <div><b>Mode</b><span>Dark-first</span></div>
+  </div>
+</div></section>
+
+<!-- 00 EVOLUTION NOTE -->
+<section class="block"><div class="page">
+  <div class="num">00 — WHAT CHANGED IN v2</div><h2>Purple, made intentional.</h2>
+  <p class="lead">v2 promotes the violet identity from the v3 product UI into the official system. The rule that governs everything below: <b style="color:var(--t1)">purple is the interaction color, never the dominant one.</b> ~85% of every surface stays neutral charcoal and black; purple is rationed to actions, focus, active states, links, data, and rare hero moments. Nothing about the original maturity — the quiet dark, the waveform mark, the orb, Space Grotesk × Inter — was thrown away.</p>
+  <div class="cardgrid">
+    <div class="uic uic-standard"><div class="ct">Anchored on #8B5CF6</div><div class="cs">The exact violet from the product UI becomes <span style="color:var(--link)">purple-500</span> — the core of a full 10-step scale.</div></div>
+    <div class="uic uic-standard"><div class="ct">Gradient demoted, blue kept</div><div class="cs">The signal gradient now spans the full <span style="color:var(--link)">blue→indigo→violet→magenta</span> spectrum — the v1 blue lives on in the orb. Reserved for hero/brand moments only.</div></div>
+    <div class="uic uic-standard"><div class="ct">Roles over swatches</div><div class="cs">Components reference <span style="color:var(--link)">--accent</span>, <span style="color:var(--link)">--focus</span>, <span style="color:var(--link)">--link</span> — not raw hex. Recolor once, everywhere updates.</div></div>
+  </div>
+</div></section>
+
+<!-- 01 COLOR FOUNDATIONS -->
+<section class="block"><div class="page">
+  <div class="num">01 — COLOUR FOUNDATIONS</div><h2>Quiet dark, scarce purple light.</h2>
+  <p class="lead">A cool near-black foundation so a single high-chroma accent reads as pure signal. The neutrals carry the interface; purple earns attention precisely because it is rare.</p>
+
+  <div class="sub-h">Neutral foundation · the 85%</div>
+  <div class="swatchgrid">
+    <div class="sw"><div class="chip" style="background:#08080C"></div><div class="info"><b>Base</b><span class="hex">#08080C</span><span class="tok">--bg</span></div></div>
+    <div class="sw"><div class="chip" style="background:#0E0E14"></div><div class="info"><b>Raised</b><span class="hex">#0E0E14</span><span class="tok">--bg2</span></div></div>
+    <div class="sw"><div class="chip" style="background:#14141C"></div><div class="info"><b>Surface 1</b><span class="hex">#14141C</span><span class="tok">--s1</span></div></div>
+    <div class="sw"><div class="chip" style="background:#1C1C26"></div><div class="info"><b>Surface 2</b><span class="hex">#1C1C26</span><span class="tok">--s2</span></div></div>
+    <div class="sw"><div class="chip" style="background:#24242F"></div><div class="info"><b>Surface 3</b><span class="hex">#24242F</span><span class="tok">--s3</span></div></div>
+    <div class="sw"><div class="chip" style="background:#363643"></div><div class="info"><b>Border+</b><span class="hex">#363643</span><span class="tok">--bd2</span></div></div>
+  </div>
+  <div class="usage"><b>USE</b> neutrals for ~85% of pixels — backgrounds, surfaces, cards, dividers, body text. <b>HAIRLINES</b> rgba(255,255,255,.07 / .12) sit over surfaces for crisp, weightless edges.</div>
+
+  <div class="sub-h">Noise Purple · the interaction color (50 → 900)</div>
+  <div class="scale10">
+    <div class="s"><div class="c" style="background:#F5F3FF"></div><div class="n">50</div><div class="x">#F5F3FF</div></div>
+    <div class="s"><div class="c" style="background:#EDE9FE"></div><div class="n">100</div><div class="x">#EDE9FE</div></div>
+    <div class="s"><div class="c" style="background:#DDD6FE"></div><div class="n">200</div><div class="x">#DDD6FE</div></div>
+    <div class="s"><div class="c" style="background:#C4B5FD"></div><div class="n">300</div><div class="x">#C4B5FD</div></div>
+    <div class="s"><div class="c" style="background:#A78BFA"></div><div class="n">400</div><div class="x">#A78BFA</div></div>
+    <div class="s"><div class="c" style="background:#8B5CF6"></div><div class="n" style="color:#fff">500★</div><div class="x">#8B5CF6</div></div>
+    <div class="s"><div class="c" style="background:#7C3AED"></div><div class="n">600</div><div class="x">#7C3AED</div></div>
+    <div class="s"><div class="c" style="background:#6D28D9"></div><div class="n">700</div><div class="x">#6D28D9</div></div>
+    <div class="s"><div class="c" style="background:#5B21B6"></div><div class="n">800</div><div class="x">#5B21B6</div></div>
+    <div class="s"><div class="c" style="background:#4C1D95"></div><div class="n">900</div><div class="x">#4C1D95</div></div>
+  </div>
+  <div class="usage">
+    <b>500 #8B5CF6</b> — core. Solid CTAs, switches, active fills.<br>
+    <b>400 #A78BFA</b> — links, accent text, hover-lift on dark (brighter reads as raised).<br>
+    <b>600 #7C3AED</b> — pressed / active states.<br>
+    <b>50–200</b> — light-mode tints &amp; on-purple text only. <b>700–900</b> — deep fills, borders, gradient anchors.
+  </div>
+
+  <div class="sub-h">Cool accent · Blue — kept from v1, the orb's home</div>
+  <div class="swatchgrid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="sw"><div class="chip" style="height:64px;background:#3BA0FF"></div><div class="info"><b>Blue</b><span class="hex">#3BA0FF</span><span class="tok">--blue · info/data</span></div></div>
+    <div class="sw"><div class="chip" style="height:64px;background:#6E63FF"></div><div class="info"><b>Orb indigo</b><span class="hex">#6E63FF</span><span class="tok">orb mid-tone</span></div></div>
+    <div class="sw"><div class="chip" style="height:64px;background:#BFC4FF"></div><div class="info"><b>Orb core</b><span class="hex">#BFC4FF</span><span class="tok">--orb-core</span></div></div>
+    <div class="sw"><div class="chip" style="height:64px;background:radial-gradient(circle at 50% 42%,#BFC4FF,#6E63FF 40%,#3BA0FF 75%)"></div><div class="info"><b>The orb</b><span class="hex">unchanged</span><span class="tok">signature mark</span></div></div>
+  </div>
+  <div class="usage"><b>BLUE</b> is the cool counterweight to purple — it owns the <b>orb</b> (kept exactly as v1), info status, links into data, charts and the cool end of the gradient. Purple = action; blue = intelligence &amp; data. The two never compete: a screen leads with one.</div>
+
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:start;margin-top:38px">
+    <div>
+      <div class="sub-h" style="margin-top:0">Signal gradient · hero &amp; brand moments only</div>
+      <div class="gradbar"><span class="lab">linear-gradient(120°, #3BA0FF → #6366F1 → #8B5CF6 → #D946EF)</span></div>
+      <div class="usage"><b>BLUE → INDIGO → VIOLET → MAGENTA</b> — the full Noise spectrum. The cool blue end is kept from v1 and lives in the orb &amp; data; purple is the centre of gravity. <b>ONLY</b> hero headlines, the orb, the wordmark dot, the AI send-button, premium card edges. Max one moment per viewport.</div>
+    </div>
+    <div>
+      <div class="sub-h" style="margin-top:0">Text tiers</div>
+      <div style="border:1px solid var(--bd);border-radius:14px;overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--bd)"><span style="color:#F4F4F8;font-size:15px">Primary text</span> <span class="mono" style="float:right">--t1</span></div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--bd)"><span style="color:#A8A8B8;font-size:15px">Secondary text</span> <span class="mono" style="float:right">--t2</span></div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--bd)"><span style="color:#6E6E80;font-size:15px">Tertiary / meta</span> <span class="mono" style="float:right">--t3</span></div>
+        <div style="padding:14px 16px"><span style="color:#A78BFA;font-size:15px">Link / accent text</span> <span class="mono" style="float:right">purple-400</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-h">Semantic status · refined to v3 (softer, more mature)</div>
+  <div class="semrow">
+    <div class="sem"><span class="d" style="background:#34D399"></span><b>Success</b><span class="hex">#34D399</span></div>
+    <div class="sem"><span class="d" style="background:#FBBF24"></span><b>Warning</b><span class="hex">#FBBF24</span></div>
+    <div class="sem"><span class="d" style="background:#FB7185"></span><b>Risk / Error</b><span class="hex">#FB7185</span></div>
+    <div class="sem"><span class="d" style="background:#3BA0FF"></span><b>Info</b><span class="hex">#3BA0FF</span></div>
+  </div>
+</div></section>
+
+<!-- 02 TYPOGRAPHY -->
+<section class="block"><div class="page">
+  <div class="num">02 — TYPOGRAPHY</div><h2>Space Grotesk × Inter.</h2>
+  <p class="lead">Hierarchy unchanged from v1 — only readability, rhythm and spacing refined. A characterful grotesk for display, Inter for flawless legibility on dark, JetBrains Mono for labels and data.</p>
+  <div class="typecols">
+    <div class="typecard">
+      <div class="face">DISPLAY · Space Grotesk</div>
+      <div class="big disp">Ag</div>
+      <div class="alpha disp">ABCDEFGHIJKLM<br>abcdefghijklm 0123456789</div>
+      <div class="role">Headlines · brand · big moments. Weights 400–700. Tracking −2 to −3.5% at large sizes.</div>
+    </div>
+    <div class="typecard">
+      <div class="face">TEXT · Inter</div>
+      <div class="big">Ag</div>
+      <div class="alpha">ABCDEFGHIJKLM<br>abcdefghijklm 0123456789</div>
+      <div class="role">Body · UI · long-form. Weights 400–600. Tracking −1.1% globally; measure held to 62–72 chars.</div>
+    </div>
+  </div>
+  <div class="scale">
+    <div class="r"><span class="nm">Display · 84 / 700</span><span class="ex" style="font-size:48px">Only what needs you.</span></div>
+    <div class="r"><span class="nm">H1 · 40 / 700</span><span class="ex" style="font-size:36px">Your always-on chief of staff</span></div>
+    <div class="r"><span class="nm">H2 · 32 / 600</span><span class="ex" style="font-size:29px">Nothing important slips</span></div>
+    <div class="r"><span class="nm">H3 · 24 / 600</span><span class="ex" style="font-size:22px">Everything, unified</span></div>
+    <div class="r"><span class="nm">H4 · 20 / 600</span><span class="ex" style="font-size:19px">Drafted in your voice</span></div>
+    <div class="r"><span class="nm">H5 · 17 / 600</span><span class="ex" style="font-size:16px">Connected channels</span></div>
+    <div class="r"><span class="nm">H6 · 14 / 650</span><span class="ex" style="font-size:14px;letter-spacing:0">Section heading</span></div>
+    <div class="r"><span class="nm">Eyebrow · 11 / mono</span><span class="ex mono" style="letter-spacing:.14em;color:var(--link)">YOUR AI CHIEF OF STAFF</span></div>
+  </div>
+  <div class="textroles">
+    <div class="troll"><div class="lbl">Body · 16 / 1.65</div><p style="color:var(--t2);font-size:15px;line-height:1.65">Set in Inter with generous line-height so it stays calm and crisp on near-black. Never a wall of text.</p></div>
+    <div class="troll"><div class="lbl">Caption · 12.5 / 1.5</div><p style="color:var(--t3);font-size:12.5px;line-height:1.5">Quiet supporting copy under cards, charts and media — tertiary tone, never primary.</p></div>
+    <div class="troll"><div class="lbl">Label &amp; Helper</div><span class="fieldlbl">Email address</span><div class="helper">We'll only use this to set up your workspace.</div></div>
+  </div>
+  <div class="para">
+    <p>Body copy is Inter at 16–17px with a touch of line-height. Measure held to 62–72 characters — calm, readable, never a wall.</p>
+    <p class="nums">Tabular numerals for all data:<br>42 · $224,000 · 99.9% · ~50 min · 7+ channels</p>
+  </div>
+</div></section>
+
+<!-- 03 SPACING -->
+<section class="block"><div class="page">
+  <div class="num">03 — SPACING SYSTEM</div><h2>A 4-pixel rhythm.</h2>
+  <p class="lead">Every gap, pad and margin is a multiple of 4. Density is dialled by stepping through the scale — tight in the app, airy on marketing — never by inventing one-off values.</p>
+  <div class="spaces">
+    <div class="sp"><div class="bar" style="height:4px"></div><div class="v">4 · sp-1</div></div>
+    <div class="sp"><div class="bar" style="height:8px"></div><div class="v">8 · sp-2</div></div>
+    <div class="sp"><div class="bar" style="height:12px"></div><div class="v">12 · sp-3</div></div>
+    <div class="sp"><div class="bar" style="height:16px"></div><div class="v">16 · sp-4</div></div>
+    <div class="sp"><div class="bar" style="height:24px"></div><div class="v">24 · sp-5</div></div>
+    <div class="sp"><div class="bar" style="height:32px"></div><div class="v">32 · sp-6</div></div>
+    <div class="sp"><div class="bar" style="height:48px"></div><div class="v">48 · sp-7</div></div>
+    <div class="sp"><div class="bar" style="height:64px"></div><div class="v">64 · sp-8</div></div>
+    <div class="sp"><div class="bar" style="height:80px"></div><div class="v">80 · sp-9</div></div>
+    <div class="sp"><div class="bar" style="height:96px"></div><div class="v">96 · sp-10</div></div>
+  </div>
+  <div class="usage"><b>16</b> default control padding · <b>24</b> card padding · <b>14–16</b> grid gutters · <b>80</b> section rhythm. Radii pair with spacing: <b>--r-sm 10</b> chips/inputs · <b>--r-md 14</b> cards · <b>--r-lg 18</b> panels · <b>--r-xl 22</b> hero surfaces.</div>
+  <div class="radii" style="margin-top:24px">
+    <div><div style="width:56px;height:56px;border-radius:10px"></div><div class="cap">10 · sm</div></div>
+    <div><div style="width:64px;height:64px;border-radius:14px"></div><div class="cap">14 · md</div></div>
+    <div><div style="width:72px;height:72px;border-radius:18px"></div><div class="cap">18 · lg</div></div>
+    <div><div style="width:80px;height:80px;border-radius:22px"></div><div class="cap">22 · xl</div></div>
+    <div><div style="width:56px;height:56px;border-radius:50%"></div><div class="cap">full</div></div>
+  </div>
+</div></section>
+
+<!-- 04 GRID -->
+<section class="block"><div class="page">
+  <div class="num">04 — GRID SYSTEM</div><h2>Twelve columns, 1180 max.</h2>
+  <p class="lead">A 12-column grid on a 1180px max content width with 56px page margins and 14–24px gutters. The app shell uses a fixed 252 / fluid / 348 three-pane layout that collapses gracefully.</p>
+  <div class="gridviz">
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+  <div class="bp">
+    <div class="b"><b>Mobile</b><span>&lt; 920px · 1 col · rail hidden</span></div>
+    <div class="b"><b>Tablet</b><span>920–1200px · 2 col · rail hidden</span></div>
+    <div class="b"><b>Desktop</b><span>1200–1480px · full 3-pane</span></div>
+    <div class="b"><b>Wide</b><span>&gt; 1480px · max 1180 content</span></div>
+  </div>
+</div></section>
+
+<!-- 05 COMPONENTS -->
+<section class="block"><div class="page">
+  <div class="num">05 — COMPONENTS</div><h2>The building blocks.</h2>
+  <p class="lead">One tokenised kit shared by site and product. Purple appears through borders, glows and fills — never neon, never everywhere. Rounded radii, hairline borders, soft glows over heavy shadows.</p>
+
+  <div class="sub-h">Buttons · six variants</div>
+  <div class="kit">
+    <div class="kitcard"><div class="h">Variants</div>
+      <div class="row">
+        <a class="btn btn-primary">Get a demo</a>
+        <a class="btn btn-secondary">Sign in</a>
+        <a class="btn btn-ghost">Learn more</a>
+        <a class="btn btn-outline">Connect</a>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <a class="btn btn-danger">Disconnect</a>
+        <a class="btn btn-success">Approve</a>
+        <a class="btn btn-hero">Hero CTA ✦</a>
+      </div>
+      <div class="usage"><b>Primary</b> solid purple — one per view. <b>Hero</b> gradient — landing/empty-state only. Everything else neutral.</div>
+    </div>
+    <div class="kitcard"><div class="h">Primary — all states</div>
+      <div class="statematrix">
+        <span class="rl">Default</span><a class="btn btn-primary" style="grid-column:span 5">Get a demo</a>
+        <span class="rl">Hover</span><a class="btn btn-primary" style="grid-column:span 5;background:var(--accent-hover);transform:translateY(-1px);box-shadow:var(--glow-md)">Get a demo</a>
+        <span class="rl">Active</span><a class="btn btn-primary" style="grid-column:span 5;background:var(--accent-press)">Get a demo</a>
+        <span class="rl">Focus</span><a class="btn btn-primary" style="grid-column:span 5;box-shadow:0 0 0 3px var(--focus),var(--glow-sm)">Get a demo</a>
+        <span class="rl">Disabled</span><a class="btn btn-primary is-disabled" style="grid-column:span 5">Get a demo</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-h">Tags &amp; status pills</div>
+  <div class="row">
+    <span class="pill pill-grad">Draft ready</span>
+    <span class="pill pill-accent">In your voice</span>
+    <span class="pill pill-red">Revenue risk</span>
+    <span class="pill pill-amber">2d waiting</span>
+    <span class="pill pill-green">Healthy</span>
+    <span class="pill pill-soft">Telegram</span>
+  </div>
+
+  <div class="sub-h">Forms · inputs, focus uses the purple ring</div>
+  <div class="kit">
+    <div class="kitcard"><div class="h">Text · textarea · select</div>
+      <div class="colw">
+        <div><span class="fieldlbl">Email</span><input class="inp" placeholder="demo@noise.app"></div>
+        <div><span class="fieldlbl">Focused</span><div class="inp focus">demo@noise.app</div><div class="helper">Purple ring = focus, everywhere.</div></div>
+        <div><span class="fieldlbl">Error</span><input class="inp" style="border-color:rgba(251,113,133,.6);box-shadow:0 0 0 3px rgba(251,113,133,.18)" value="not-an-email"><div class="helper err">Enter a valid email address.</div></div>
+        <div><span class="fieldlbl">Workspace</span><select class="inp"><option>Acme Inc</option><option>Personal</option></select></div>
+        <div><span class="fieldlbl">Message</span><textarea class="inp" placeholder="Ask or tell Noise…"></textarea></div>
+      </div>
+    </div>
+    <div class="kitcard"><div class="h">Switches · checkboxes · radios · segmented</div>
+      <div class="colw">
+        <div class="optline"><span class="switch on" tabindex="0"><i></i></span> Notifications <span style="color:var(--t3);margin-left:auto;font-size:12px">on</span></div>
+        <div class="optline"><span class="switch" tabindex="0"><i></i></span> Weekly digest <span style="color:var(--t3);margin-left:auto;font-size:12px">off</span></div>
+        <div class="optline"><span class="cbx on" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span> Auto-draft replies</div>
+        <div class="optline"><span class="cbx" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span> Send without review</div>
+        <div class="optline"><span class="rdo on" tabindex="0"><i></i></span> In my voice</div>
+        <div class="optline"><span class="rdo" tabindex="0"><i></i></span> Neutral / formal</div>
+        <div class="seg" style="margin-top:6px"><button class="on">Light</button><button>Dark</button><button>Auto</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-h">Cards · five variants — purple is subtle (border / glow / edge)</div>
+  <div class="cardgrid">
+    <div class="uic uic-standard"><span class="cv">standard</span><div class="ct">Acme Construction</div><div class="cs">Awaiting your signature · $144,000</div></div>
+    <div class="uic uic-elevated"><span class="cv">elevated</span><div class="ct">John Smith</div><div class="cs">Neutral shadow lifts it off the page — no colour.</div></div>
+    <div class="uic uic-glass"><span class="cv">glass</span><div class="ct">Live overlay</div><div class="cs">Translucent + blur. For toolbars, popovers, modals.</div></div>
+    <div class="uic uic-feature"><span class="cv">feature</span><div class="ct">Draft ready</div><div class="cs">Faint purple top-glow signals "AI did something."</div></div>
+    <div class="uic uic-premium"><span class="cv">premium</span><div class="ct">Noise Pro</div><div class="cs">Gradient hairline edge + glow. Rare, for upgrade &amp; hero.</div></div>
+    <div class="uic uic-standard" style="display:grid;place-items:center;color:var(--t3);font-size:12.5px;text-align:center">Default to standard.<br>Earn every step up.</div>
+  </div>
+
+  <div class="sub-h">Iconography · line, rounded, 1.6px — stroked in purple-400</div>
+  <div class="icons">
+    <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+    <div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg></div>
+    <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5"/></svg></div>
+    <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 12h6"/></svg></div>
+    <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 .01 0M8 12l3 3 5-6"/></svg></div>
+  </div>
+</div></section>
+
+<!-- 06 NAVIGATION -->
+<section class="block"><div class="page">
+  <div class="num">06 — NAVIGATION</div><h2>Linear · Arc · Raycast logic.</h2>
+  <p class="lead">Navigation stays almost entirely neutral. The active item is the one place purple appears — a 3px gradient indicator and a quiet surface lift — so location is unmistakable without shouting.</p>
+  <div class="navdemo">
+    <div class="topnav">
+      <div class="brand"><span class="wave" style="--w:4px;height:22px"><i style="height:8px"></i><i style="height:16px"></i><i style="height:22px"></i><i style="height:12px"></i><i style="height:6px"></i></span> Noise</div>
+      <div class="tabs"><a class="on">Cockpit</a><a>Documents</a><a>People</a><a>Settings</a></div>
+      <div class="sp"></div>
+      <a class="btn btn-primary" style="padding:8px 14px;font-size:13px">New</a>
+    </div>
+    <div class="sidenav">
+      <div class="lbl">Workspace</div>
+      <div class="navitem active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg> Cockpit</div>
+      <div class="navitem"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg> Documents <span class="badge">12</span></div>
+      <div class="navitem"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0"/></svg> People</div>
+      <div class="navitem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.2-1.8l1.8-1.4-2-3.4-2.1.9A7 7 0 0014 4.2L13.6 2h-3.2L10 4.2a7 7 0 00-1.8 1L6.1 4.4l-2 3.4 1.8 1.4A7 7 0 005 12"/></svg> Settings</div>
+      <div class="lbl">Channels</div>
+      <div class="navitem"><svg viewBox="0 0 24 24"><path d="M4 5h16v12H4z"/><path d="M4 7l8 5 8-5"/></svg> Gmail</div>
+      <div class="navitem"><svg viewBox="0 0 24 24"><path d="M21 5L2 12l6 2 2 6 3-4 5 4z"/></svg> Telegram</div>
+    </div>
+    <div>
+      <div class="usage" style="margin-top:0"><b>Top nav</b> glass bar, gradient underline on the active tab. <b>Sidebar</b> 3px gradient bar + surface-2 fill on active; hover is a faint white wash only. <b>Badges</b> use the soft purple chip.</div>
+      <div class="sub-h">Mobile · bottom tab bar</div>
+      <div class="mobilenav">
+        <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Cockpit</a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/></svg>Docs</a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0"/></svg>People</a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M5 12h.01M19 12h.01"/></svg>More</a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 07 INTERACTION STATES -->
+<section class="block"><div class="page">
+  <div class="num">07 — INTERACTION STATES</div><h2>Every element, every state.</h2>
+  <p class="lead">A consistent state language: hover lifts and brightens, active settles and deepens, focus always shows the purple ring, disabled drops to 40% and removes shadow. Motion is calm — no bounce.</p>
+  <div class="kit">
+    <div class="kitcard"><div class="h">Buttons — default · hover · active · focus · disabled</div>
+      <div class="colw">
+        <div class="row tight"><span class="statetag">primary</span><a class="btn btn-primary">A</a><a class="btn btn-primary" style="background:var(--accent-hover);transform:translateY(-1px);box-shadow:var(--glow-md)">A</a><a class="btn btn-primary" style="background:var(--accent-press)">A</a><a class="btn btn-primary" style="box-shadow:0 0 0 3px var(--focus),var(--glow-sm)">A</a><a class="btn btn-primary is-disabled">A</a></div>
+        <div class="row tight"><span class="statetag">secondary</span><a class="btn btn-secondary">A</a><a class="btn btn-secondary" style="background:var(--s3);border-color:var(--bd2)">A</a><a class="btn btn-secondary" style="background:var(--s1)">A</a><a class="btn btn-secondary" style="box-shadow:0 0 0 3px var(--focus)">A</a><a class="btn btn-secondary is-disabled">A</a></div>
+        <div class="row tight"><span class="statetag">ghost</span><a class="btn btn-ghost">A</a><a class="btn btn-ghost" style="background:rgba(255,255,255,.05)">A</a><a class="btn btn-ghost" style="background:rgba(255,255,255,.08)">A</a><a class="btn btn-ghost" style="box-shadow:0 0 0 3px var(--focus)">A</a><a class="btn btn-ghost is-disabled">A</a></div>
+        <div class="row tight"><span class="statetag">outline</span><a class="btn btn-outline">A</a><a class="btn btn-outline" style="background:var(--accent-weak);border-color:var(--accent)">A</a><a class="btn btn-outline" style="background:var(--accent-weak)">A</a><a class="btn btn-outline" style="box-shadow:0 0 0 3px var(--focus)">A</a><a class="btn btn-outline is-disabled">A</a></div>
+      </div>
+    </div>
+    <div class="kitcard"><div class="h">Inputs &amp; controls</div>
+      <div class="colw">
+        <input class="inp" placeholder="Rest"><input class="inp" style="border-color:var(--bd2)" placeholder="Hover"><div class="inp focus">Focus — purple ring</div>
+        <div class="row" style="margin-top:4px"><span class="switch" tabindex="0"><i></i></span><span class="switch on" tabindex="0"><i></i></span><span class="cbx" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="cbx on" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="rdo" tabindex="0"><i></i></span><span class="rdo on" tabindex="0"><i></i></span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 08 MOTION -->
+<section class="block"><div class="page">
+  <div class="num">08 — MOTION PRINCIPLES</div><h2>One living mark, calm transitions.</h2>
+  <p class="lead">The orb is "Noise Brain" — an emissive light source, not a painted disc. It breathes slowly (~6s). One easing family, slightly overdamped — nothing snaps or bounces.</p>
+  <div class="orbrow">
+    <div class="orbcard"><div class="bigorb"></div><b>The orb</b><small>Radial gradient + soft bloom, brightening to a near-white core.</small></div>
+    <div class="orbcard"><div class="bigorb" style="filter:blur(14px);opacity:.7"></div><b>Ambient glow</b><small>Background bloom behind hero &amp; CTA moments. Low opacity, large blur.</small></div>
+    <div class="orbcard"><div class="bigorb" style="width:70px;height:70px"></div><b>Mini orb</b><small>The AI's presence in-product — assistant avatar, "thinking" state.</small></div>
+  </div>
+  <div class="principles" style="margin-top:24px">
+    <div class="prin"><b>Calm by default</b><small>Easing var(--ease) cubic-bezier(.2,.8,.2,1). Durations 120–320ms for UI, 600ms for entrances.</small></div>
+    <div class="prin"><b>Chaos → clarity</b><small>Transitions resolve scattered elements into order — the brand idea in motion.</small></div>
+  </div>
+</div></section>
+
+<!-- 09 PURPLE ACCENT SYSTEM + SIGNATURE EFFECTS -->
+<section class="block"><div class="page">
+  <div class="num">09 — PURPLE ACCENT SYSTEM</div><h2>Noise signature effects.</h2>
+  <p class="lead">The 80/20 rule made literal: keep ~85% of the interface neutral, spend purple only where it does work. Every effect below ships with a usage rule — restraint is the brand.</p>
+
+  <div class="noiseSig" style="margin-bottom:38px">
+    <div class="noiseBox n" id="nz"></div>
+    <div class="arrow">→</div>
+    <div class="noiseBox s"><div class="sigwave"><i style="height:14px"></i><i style="height:30px"></i><i style="height:48px"></i><i style="height:64px"></i><i style="height:40px"></i><i style="height:22px"></i><i style="height:10px"></i></div></div>
+  </div>
+
+  <div class="fxgrid">
+    <div class="fx"><div class="demo"><div class="glowball"></div></div><b>Purple glow</b><small>3 tiers (sm/md/lg). Hover lift on CTAs, premium cards, the AI send-button. One glow per viewport — never decorative.</small></div>
+    <div class="fx"><div class="demo" style="background:var(--grad);border-radius:14px"><div class="glassball"></div></div><b>Glass</b><small>rgba surface + blur(8–16px) + .12 hairline. Toolbars, popovers, modals over content. Not on flat backgrounds.</small></div>
+    <div class="fx"><div class="demo"><div style="width:120px;height:70px;border-radius:14px;background:var(--grad)"></div></div><b>Gradient</b><small>indigo→violet→magenta. Hero headlines, orb, wordmark dot, premium edges only. Max one moment per screen.</small></div>
+    <div class="fx"><div class="demo"><div class="focusball"></div></div><b>Focus ring</b><small>0 0 0 3px rgba(139,92,246,.5). Identical on every focusable element. Always visible — never removed for aesthetics.</small></div>
+    <div class="fx"><div class="demo"><div style="width:130px;height:80px;border-radius:14px;background:var(--s1);box-shadow:var(--sh-3);border:1px solid var(--bd)"></div></div><b>Neutral shadow</b><small>Default for depth — colourless. --sh-1/2/3. Use purple glow only to signal intelligence or premium.</small></div>
+    <div class="fx"><div class="demo"><div style="width:120px;height:70px;border-radius:14px;background:var(--s1);position:relative;overflow:hidden;border:1px solid var(--bd)"><div style="position:absolute;inset:0;background:radial-gradient(120% 80% at 50% -10%,rgba(139,92,246,.16),transparent 60%)"></div></div></div><b>Feature top-glow</b><small>Faint radial from the top edge = "AI did something here." Cards, banners, KPI alerts.</small></div>
+  </div>
+</div></section>
+
+<!-- 10 ACCESSIBILITY -->
+<section class="block"><div class="page">
+  <div class="num">10 — ACCESSIBILITY</div><h2>Premium and legible.</h2>
+  <p class="lead">Purple's biggest risk is low contrast on dark. The rule: purple-500 is for fills and borders, not text. For text and icons on dark, step up to purple-300/400. Targets are WCAG AA.</p>
+  <div class="a11y">
+    <div class="a11ycard"><h4>Contrast — purple text on base #08080C</h4>
+      <div class="contrastrow"><span class="swat" style="background:#8B5CF6"></span><span style="color:#8B5CF6">purple-500 body text</span><span class="ratio fail">3.6 · fail body</span></div>
+      <div class="contrastrow"><span class="swat" style="background:#A78BFA"></span><span style="color:#A78BFA">purple-400 — links</span><span class="ratio pass">5.9 · AA</span></div>
+      <div class="contrastrow"><span class="swat" style="background:#C4B5FD"></span><span style="color:#C4B5FD">purple-300 — emphasis</span><span class="ratio pass">9.1 · AAA</span></div>
+      <div class="contrastrow"><span class="swat" style="background:#F4F4F8"></span><span style="color:#F4F4F8">primary text --t1</span><span class="ratio pass">17 · AAA</span></div>
+    </div>
+    <div class="a11ycard"><h4>Rules</h4>
+      <div class="do-dont"><span class="m y">✓</span><span>Use purple-400+ for any text or icon that must be read on dark.</span></div>
+      <div class="do-dont"><span class="m y">✓</span><span>White text (#fff) on solid purple-500/600 fills — 4.6:1, passes.</span></div>
+      <div class="do-dont"><span class="m y">✓</span><span>Keep the focus ring visible on every control; pair colour with shape/icon for status.</span></div>
+      <div class="do-dont"><span class="m n">✕</span><span>purple-500 as body or label text on a dark surface.</span></div>
+      <div class="do-dont"><span class="m n">✕</span><span>Conveying state by colour alone — always add a label, dot or icon.</span></div>
+      <div class="do-dont"><span class="m n">✕</span><span>Targets under 44×44px or motion without a reduced-motion fallback.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 11 PRODUCT EXAMPLES -->
+<section class="block"><div class="page">
+  <div class="num">11 — REAL PRODUCT EXAMPLES</div><h2>The system, assembled.</h2>
+  <p class="lead">Components composed the way they ship — neutral canvas, purple reserved for the active state, the AI presence, and the single moment that needs attention.</p>
+  <div class="prodgrid">
+    <div class="appwin">
+      <div class="appbar"><div class="dots"><i></i><i></i><i></i></div><div class="ttl">noise · cockpit</div></div>
+      <div class="appbody">
+        <div class="row" style="justify-content:space-between;margin-bottom:16px"><div><div style="font-family:var(--disp);font-size:20px;font-weight:700;letter-spacing:-.02em">Good morning, Alex</div><div style="color:var(--t3);font-size:13px;margin-top:3px">3 things need you today.</div></div><a class="btn btn-primary" style="padding:9px 15px">Review all</a></div>
+        <div class="kpi-row">
+          <div class="kpi hot"><div class="k">Revenue at risk</div><div class="v" style="color:#FFB3BD">$224k</div><div class="dlt down">6 deals · 4d</div></div>
+          <div class="kpi"><div class="k">Drafts ready</div><div class="v">8</div><div class="dlt up">in your voice</div></div>
+          <div class="kpi"><div class="k">Handled today</div><div class="v">42</div><div class="dlt up">+12 vs avg</div></div>
+        </div>
+        <div style="margin-top:18px">
+          <div class="feedline"><span class="fd"></span><div><div class="ft">Draft ready — Acme renewal</div><div class="fw">Telegram · 12m ago</div></div></div>
+          <div class="feedline"><span class="fd" style="background:var(--err)"></span><div><div class="ft">John Smith waiting 2 days</div><div class="fw">Gmail · needs a reply</div></div></div>
+          <div class="feedline"><span class="fd" style="background:var(--ok)"></span><div><div class="ft">Invoice #2241 paid</div><div class="fw">Stripe · 1h ago</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="railcard">
+      <div class="railhead"><div class="orbspin"></div><div><div style="font-size:14.5px;font-weight:700">Noise Brain</div><div style="font-size:11.5px;color:var(--t3)">Listening across 7 channels</div></div></div>
+      <div class="pill pill-accent" style="margin-bottom:14px">Thinking…</div>
+      <div class="cs" style="color:var(--t2);font-size:13.5px;line-height:1.6">Hand it anything — a doc, a thread, a half-formed thought — and it goes to work. Only what needs you ever reaches you.</div>
+      <div class="askmini"><input placeholder="Ask or tell Noise…"><span class="send"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="foot page"><span>NOISE · DESIGN SYSTEM v2</span><span>Purple is the signal, not the noise.</span></div>
+
+<script>
+// scatter the "noise" dots
+var nz=document.getElementById('nz');
+for(var i=0;i<46;i++){var c=document.createElement('div');c.className='c';
+ c.style.left=(Math.random()*92+2)+'%';c.style.top=(Math.random()*82+6)+'%';
+ c.style.transform='rotate('+(Math.random()*90)+'deg)';nz.appendChild(c);}
+// make demo controls toggle so the states feel real
+document.querySelectorAll('.switch,.cbx,.rdo').forEach(function(el){
+  el.addEventListener('click',function(){el.classList.toggle('on')});
+  el.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();el.classList.toggle('on')}});
+});
+document.querySelectorAll('.seg').forEach(function(seg){
+  seg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){
+    seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on')})});
+});
+</script>
+</body></html>
