@@ -67,7 +67,7 @@ export default function ChannelNetwork() {
 
         <Reveal>
           <p className="net-cap eyebrow" style={{ textAlign: 'center', marginTop: 44, color: 'var(--p400)' }}>
-            More than a unified inbox.
+            More than a unified inbox. The foundation for something smarter.
           </p>
         </Reveal>
 
