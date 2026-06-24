@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { motion, useScroll, useMotionValueEvent, useReducedMotion } from 'framer-motion'
 import Orb from './Orb'
 import Laptop from './Laptop'
@@ -12,12 +12,12 @@ import { NoiseMark } from '../lib/NoiseMark'
 
 interface Beat {
   kicker?: string
-  left?: string
+  left?: ReactNode
   right?: string
   note?: string
   eyebrow?: string
   head?: string
-  sub?: string
+  sub?: ReactNode
   audience?: string
   cta?: boolean
 }
@@ -26,17 +26,17 @@ const BEATS: Beat[] = [
   {
     eyebrow: 'The memory layer for your business',
     head: 'Your company should know everything.',
-    sub: 'Noise gives your company a memory. It remembers what was said, promised, decided and forgotten across email, chat, meetings and files.',
+    sub: <>Noise gives your company a memory.<br />It remembers conversations, tracks relationships, and keeps commitments from slipping through the cracks.</>,
     audience: 'Connect Gmail, Outlook, Slack, Teams, WhatsApp, Telegram, Drive and Calendar.',
     cta: true,
   },
   { kicker: '01 — Connect', left: 'Connect every channel once', right: 'Every conversation becomes searchable', note: 'Gmail, Slack, Teams, WhatsApp, Drive and more — connected once, never again.' },
   { kicker: '02 — Memory', left: 'Drop anything in. Noise remembers it.', note: 'Emails, files, contracts, notes and attachments become company memory automatically.' },
-  { kicker: '03 — Focus', left: 'One feed of what needs attention', note: 'Drafts, follow-ups, decisions and next actions — all in one place.' },
-  { kicker: '04 — Intelligence', left: 'See risk before it becomes a problem', note: 'Noise tracks every relationship and surfaces changes before they cost you.' },
-  { kicker: '05 — The moat', left: 'People leave', right: 'Knowledge stays', note: 'When someone leaves, their context stays with the company.' },
-  { kicker: '06 — Trust', left: 'Every answer shows its evidence', note: 'Trace every score, recommendation and insight back to the source.' },
-  { kicker: '07 — Calendar', left: 'Meetings arrive prepared', note: 'Meeting links, context, follow-ups and next steps — handled automatically.' },
+  { kicker: '03 — Focus', left: 'One feed that needs your attention', note: 'Drafts, follow-ups, decisions and next actions — all in one place.' },
+  { kicker: '04 — Intelligence', left: 'Spot problems while they’re still fixable', note: 'Noise identifies slowing communication, missed commitments and relationship risk before it affects the business.' },
+  { kicker: '05 — The moat', left: <>People leave,<br />people get hired.</>, right: 'Knowledge stays', note: 'When someone leaves, their context stays — every new hire inherits it instantly.' },
+  { kicker: '06 — Trust', left: 'Know why, not just what', note: 'Noise explains the conversations, commitments and signals behind every recommendation.' },
+  { kicker: '07 — Calendar', left: <>Meetings<br /><span style={{ whiteSpace: 'nowrap' }}>Always prepared.</span></>, note: 'Meeting links, context, follow-ups and next steps — handled automatically.' },
   { kicker: '08 — Dashboard', left: 'Your whole company, one screen', note: 'Every conversation, document, meeting and relationship in a single live view.' },
   { head: 'More than a unified inbox.', sub: 'A memory layer for your company.', audience: 'Noise turns conversations, documents and relationships into institutional memory.', cta: true },
 ]
@@ -87,7 +87,7 @@ export default function OrbStory({ onSignup }: { onSignup: () => void }) {
               {b.sub && <p className="lead">{b.sub}</p>}
               {b.audience && <p className="lead">{b.audience}</p>}
               {(b.left || b.right) && (
-                <p className="lead"><b>{b.left}.</b> {b.right ? `${b.right}.` : ''}</p>
+                <p className="lead"><b>{b.left}{typeof b.left === 'string' ? '.' : ''}</b> {b.right ? `${b.right}.` : ''}</p>
               )}
               {b.note && <p className="lead">{b.note}</p>}
               {b.cta && <button className="btn btn-glass btn-glass-accent btn-lg" onClick={onSignup}>Connect your email {Icon.arrow}</button>}

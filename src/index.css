@@ -808,12 +808,20 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 .intro-lead-phone>img{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
 .intro-lead-screen{position:absolute;left:22.5%;top:4.6%;width:54.8%;height:90.5%;border-radius:24px;overflow:hidden;z-index:1;
   background:radial-gradient(120% 70% at 50% 0,#17131f,#08080C 62%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:14px}
-/* 2×2 multiscreen grid of brand panels (matches the AE template layout) */
-.intro-grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:clamp(250px,31vw,376px);will-change:transform,filter}
+/* 2×2 multiscreen grid of brand panels — tilt up in 3D, then build content */
+.intro-grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;width:clamp(250px,31vw,376px);
+  perspective:1100px;will-change:transform,filter}
 .intro-panel{aspect-ratio:9/15;border-radius:18px;overflow:hidden;position:relative;
-  background:linear-gradient(180deg,#16161f,#0b0b11);border:1px solid var(--bd2);box-shadow:var(--sh-3);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:15px;text-align:center;will-change:transform,filter,opacity}
-.intro-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(110% 70% at 50% 0,rgba(139,92,246,.14),transparent 58%);pointer-events:none}
+  background:linear-gradient(180deg,rgba(27,27,38,.74),rgba(12,12,18,.84));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 28px 66px -26px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter:blur(12px) saturate(1.25);-webkit-backdrop-filter:blur(12px) saturate(1.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:16px 14px;text-align:center;
+  transform-style:preserve-3d;will-change:transform,filter,opacity}
+.intro-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 76% at 50% -8%,rgba(139,92,246,.17),transparent 60%);pointer-events:none}
+/* hairline accent across the top edge — gives each panel a "live screen" read */
+.intro-panel::after{content:"";position:absolute;left:13%;right:13%;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.7),transparent)}
 .ip-applogo{width:62%;filter:drop-shadow(0 0 24px rgba(123,104,238,.6))}
 /* app icon: black rounded background with the live animated waveform on top */
 .app-icon{position:relative;display:grid;place-items:center;width:62%;aspect-ratio:1;filter:drop-shadow(0 0 22px rgba(123,104,238,.5))}
@@ -828,13 +836,16 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 .ip-cap{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
 .scr-name{font-size:11px;font-weight:650}
 .scr-title{font-family:var(--disp);font-weight:650;font-size:11px;text-align:center;line-height:1.3;color:var(--t1)}
-.scr-chans{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:78%}
-.scr-chan{display:grid;place-items:center;aspect-ratio:1}
-.scr-chan img{width:78%;height:78%;object-fit:contain}
+.scr-chans{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:84%}
+/* channels sit on their own subtle tiles so the panel reads like an app surface */
+.scr-chan{display:grid;place-items:center;aspect-ratio:1;border-radius:12px;
+  background:rgba(255,255,255,.05);border:1px solid var(--bd2);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.scr-chan img{width:56%;height:56%;object-fit:contain}
 .ip-orb{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 50% 42%,#BFC4FF,#6E63FF 34%,#3BA0FF 64%,transparent 80%);box-shadow:0 0 28px -4px rgba(139,92,246,.6);animation:breathe 5s var(--ease) infinite}
-.ip-score{font-family:var(--disp);font-weight:700;font-size:30px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ok)}
-.ip-bar{height:5px;width:72%;border-radius:4px;background:var(--s2);overflow:hidden}
-.ip-bar i{display:block;height:100%;border-radius:4px;background:var(--ok)}
+.ip-score{font-family:var(--disp);font-weight:700;font-size:31px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ok);
+  text-shadow:0 0 22px rgba(52,211,153,.45)}
+.ip-bar{height:5px;width:72%;border-radius:4px;background:var(--s2);overflow:hidden;box-shadow:inset 0 1px 1px rgba(0,0,0,.4)}
+.ip-bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#34D399,#5BE3B0);box-shadow:0 0 10px rgba(52,211,153,.6)}
 .ip-state{font-size:9.5px;font-weight:600;color:var(--ok)}
 .ip-brief{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:2px}
 .ip-bl{display:flex;gap:6px;font-size:8.5px;color:var(--t2);text-align:left;line-height:1.35}
@@ -1142,6 +1153,9 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 .os-person{position:absolute;translate:-50% -50%;width:64px;height:64px;border-radius:18px;display:grid;place-items:center;
   font-family:var(--disp);font-weight:700;font-size:20px;color:#fff;background:linear-gradient(135deg,#475569,#64748b)}
 .os-leave-tag{position:absolute;translate:-50% 0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--err);white-space:nowrap}
+/* moat — a NEW hire arriving: brand-coloured avatar + a positive "briefed" tag */
+.os-person.joining{background:linear-gradient(135deg,#6E63FF,#3BA0FF)}
+.os-leave-tag.joined{color:var(--ok)}
 .os-retain{position:absolute;translate:-50% -50%;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--t1);
   background:rgba(14,14,20,.7);border:1px solid var(--bd2);border-radius:20px;padding:6px 12px;white-space:nowrap}
 .os-retain .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);flex:none}
@@ -1166,7 +1180,7 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 
 /* support note — one calm sentence beneath the beat */
 .os-note{position:absolute;left:50%;bottom:11vh;transform:translateX(-50%);z-index:5;
-  max-width:46ch;text-align:center;font-size:14.5px;line-height:1.5;color:var(--t2);
+  max-width:48ch;text-align:center;font-size:21px;line-height:1.55;color:var(--t2);
   text-shadow:0 2px 20px rgba(8,8,12,.9);padding:0 24px}
 
 /* ── CALENDAR ACTION SIMULATION (orb operational) ── */
@@ -1313,6 +1327,35 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 .of-row.done .of-act{background:transparent;color:var(--ok);padding-right:0}
 .of-act svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.4}
 .os-focus-foot{margin-top:13px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--t2);font-weight:500}
+/* showcase row — opens into a live draft a cursor sends, to SHOW Open Focus */
+.of-row.open{border-left-color:var(--accent);box-shadow:0 0 0 1px var(--accent-line),0 20px 46px -18px rgba(124,92,255,.6)}
+.of-expand{position:relative;overflow:hidden}
+.of-msg{margin-top:11px;padding:9px 11px;border-radius:9px;background:rgba(255,255,255,.04);
+  border:1px solid var(--line);font-size:12px;line-height:1.5;color:var(--t2)}
+.of-draft{margin-top:8px;padding:9px 11px;border-radius:9px;border:1px solid var(--accent-line);
+  background:var(--accent-weak);font-size:12px;line-height:1.55;color:var(--t1)}
+.of-expand-foot{position:relative;display:flex;justify-content:flex-end;align-items:center;margin-top:11px;min-height:30px}
+.of-draft-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#fff;
+  background:var(--accent);border-radius:9px;padding:7px 13px}
+.of-draft-btn.on{background:var(--accent-weak);color:var(--p300);border:1px solid var(--accent-line)}
+.of-draft-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.4}
+/* the cursor rests over the button (box width is fixed on desktop, the only place this renders) */
+.of-cursor{position:absolute;right:48px;bottom:2px;width:19px;height:19px;z-index:6;pointer-events:none;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+.of-cursor svg{width:100%;height:100%;fill:#fff;stroke:#0b0b11;stroke-width:1}
+.of-cursor::after{content:"";position:absolute;left:-7px;top:-7px;width:20px;height:20px;border-radius:50%;
+  border:2px solid rgba(167,139,250,.9);opacity:0}
+.of-cursor.click::after{animation:osClick .5s var(--ease)}
+/* cleared state — calm "all caught up" with the time-saved payoff */
+.of-clear{display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;padding:34px 18px 26px}
+.of-clear-check{width:54px;height:54px;margin-bottom:7px;filter:drop-shadow(0 0 18px rgba(52,211,153,.5))}
+.of-clear-check svg{width:100%;height:100%;overflow:visible}
+.ofc-ring{fill:none;stroke:rgba(52,211,153,.5);stroke-width:2}
+.ofc-tick{fill:none;stroke:var(--ok);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.of-clear-t{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--t1)}
+.of-clear-s{font-size:12.5px;color:var(--ok);font-weight:600}
+.of-clear-watch{margin-top:10px;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--t3)}
+.ofc-pulse{width:7px;height:7px;border-radius:50%;flex:none;background:var(--p400);animation:calPulse 1.6s ease-in-out infinite}
 
 /* ── CALENDAR GRID (section 07, centre) ── */
 .os-cal-grid{position:absolute;left:50%;top:52%;translate:-50% -50%;z-index:4;width:min(460px,58vw);pointer-events:none;
@@ -1345,7 +1388,9 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 .os-kicker{position:absolute;left:50%;top:14vh;transform:translateX(-50%);font-family:var(--mono);font-size:12px;
   letter-spacing:.18em;text-transform:uppercase;color:var(--p400);white-space:nowrap}
 .os-side{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--disp);font-weight:700;letter-spacing:-.03em;
-  font-size:clamp(22px,3.2vw,40px);line-height:1.05;color:var(--t1);text-shadow:0 2px 30px rgba(8,8,12,.85);max-width:7em}
+  font-size:clamp(28px,4vw,50px);line-height:1.05;color:var(--t1);text-shadow:0 2px 30px rgba(8,8,12,.85);
+  /* bound the column so the bigger text can't grow into the centred orb (24vw) */
+  max-width:min(7em,28vw)}
 .os-side.left{left:6%;text-align:left}
 .os-side.right{right:6%;text-align:right}
 .os-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:min(820px,90vw);padding:0 24px}
@@ -1376,7 +1421,7 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 
 @media(max-width:900px){
   .os-orb-field{transform:scale(.74);transform-origin:center}
-  .os-side{font-size:clamp(18px,5vw,28px)}
+  .os-side{font-size:clamp(22px,6.25vw,35px)}
   .os-cal-layer{right:4%}
 }
 @media(max-width:560px){

@@ -221,17 +221,30 @@ export default function Orb({ stage, reduce }: { stage: number; reduce: boolean 
           </motion.div>
         )}
 
-        {/* MOAT — a person fades, knowledge stays */}
+        {/* MOAT — someone LEAVES (knowledge stays), then a new hire JOINS and is
+            briefed instantly by the company brain. Two phases, same seat. */}
         {stage === 5 && (
           <motion.div className="os-layer" key="moat" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+            {/* phase 1 — the departing person fades out and greys away */}
             <motion.span className="os-person leaving"
-              initial={anim({ opacity: 1, x: 0 })}
-              animate={anim({ opacity: 0.15, x: -90, filter: 'grayscale(1)' })}
-              transition={{ duration: 1.6, ease: EASE, delay: 0.4 }}
+              initial={anim({ opacity: 1, x: 0, filter: 'grayscale(0)' })}
+              animate={anim({ opacity: 0.12, x: -95, filter: 'grayscale(1)' })}
+              transition={{ duration: 1.3, ease: EASE, delay: 0.3 }}
               style={{ left: 'calc(50% - 150px)', top: '50%' }}
             >MR</motion.span>
-            <motion.span className="os-leave-tag" style={{ left: 'calc(50% - 150px)', top: 'calc(50% + 42px)' }}
-              initial={anim({ opacity: 0 })} animate={{ opacity: 1 }} transition={{ delay: 1.1 }}>left the company</motion.span>
+            <motion.span className="os-leave-tag"
+              initial={anim({ opacity: 0 })} animate={anim({ opacity: [0, 1, 1, 0] })}
+              transition={{ duration: 1.6, times: [0, 0.18, 0.7, 1], delay: 0.5 }}
+              style={{ left: 'calc(50% - 150px)', top: 'calc(50% + 42px)' }}>left the company</motion.span>
+            {/* phase 2 — the new hire arrives into the same seat and comes to life */}
+            <motion.span className="os-person joining"
+              initial={anim({ opacity: 0, x: -120, filter: 'grayscale(1)' })}
+              animate={anim({ opacity: 1, x: 0, filter: 'grayscale(0)' })}
+              transition={{ duration: 1.3, ease: EASE, delay: 2 }}
+              style={{ left: 'calc(50% - 150px)', top: '50%' }}
+            >JD</motion.span>
+            <motion.span className="os-leave-tag joined" style={{ left: 'calc(50% - 150px)', top: 'calc(50% + 42px)' }}
+              initial={anim({ opacity: 0 })} animate={{ opacity: 1 }} transition={{ delay: 2.8 }}>joined · fully briefed</motion.span>
             {['Relationships', 'Documents', 'History', 'Context'].map((k, i) => {
               const { x, y } = polar(-50 + i * 34, 236)
               return (
