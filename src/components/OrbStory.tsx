@@ -24,7 +24,7 @@ interface Beat {
 
 const BEATS: Beat[] = [
   {
-    eyebrow: 'The memory layer for your company',
+    eyebrow: 'The memory layer for your business',
     head: 'Your company should know everything.',
     sub: 'Noise gives your company a memory. It remembers what was said, promised, decided and forgotten across email, chat, meetings and files.',
     audience: 'Connect Gmail, Outlook, Slack, Teams, WhatsApp, Telegram, Drive and Calendar.',
