@@ -2,18 +2,11 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import IntroOverlay from './components/IntroOverlay'
 import Nav from './components/Nav'
-import Hero from './components/Hero'
+import OrbStory from './components/OrbStory'
+import FeatureCards from './components/FeatureCards'
 import TrustStrip from './components/TrustStrip'
-import ChannelNetwork from './components/ChannelNetwork'
-import Problem from './components/Problem'
-import MemoryDemo from './components/MemoryDemo'
-import Intelligence from './components/Intelligence'
-import ActionLayer from './components/ActionLayer'
-import Moat from './components/Moat'
-import HowItWorks from './components/HowItWorks'
-import Trust from './components/Trust'
-import Calendar from './components/Calendar'
-import FinalCTA from './components/FinalCTA'
+import Faq from './components/Faq'
+import GiantWordmark from './components/GiantWordmark'
 import Footer from './components/Footer'
 import SignupFlow from './components/SignupFlow'
 
@@ -58,18 +51,11 @@ export default function App() {
     <>
       <Nav onSignup={openSignup} />
       <main>
-        <Hero onSignup={openSignup} />
+        <OrbStory onSignup={openSignup} />
+        <FeatureCards />
         <TrustStrip />
-        <Problem />
-        <ChannelNetwork />
-        <MemoryDemo onSignup={openSignup} />
-        <Intelligence />
-        <ActionLayer />
-        <Moat onSignup={openSignup} />
-        <Trust />
-        <Calendar />
-        <HowItWorks />
-        <FinalCTA onSignup={openSignup} />
+        <Faq />
+        <GiantWordmark />
       </main>
       <Footer />
       <SignupFlow open={signup} onClose={() => setSignup(false)} />

@@ -1,4 +1,5 @@
 import { NoiseMark } from '../lib/NoiseMark'
+import { AppStoreBadge, GooglePlayBadge } from '../lib/StoreBadges'
 
 const COLS: [string, [string, string][]][] = [
   ['Product', [['#channels', 'Channels'], ['#memory', 'Memory'], ['#intelligence', 'Intelligence'], ['#how', 'How it works']]],
@@ -14,6 +15,10 @@ export default function Footer() {
           <div>
             <a className="brand" href="#top"><NoiseMark width={94} height={19} /> <span className="brand-word">Noise<span className="dot-g">.</span></span></a>
             <p className="ft-tag">Turn the noise into signal. The memory and intelligence layer on top of every channel you communicate through.</p>
+            <div className="foot-stores">
+              <AppStoreBadge />
+              <GooglePlayBadge />
+            </div>
           </div>
           <div className="foot-cols">
             {COLS.map(([title, links]) => (
