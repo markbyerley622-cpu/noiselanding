@@ -144,7 +144,7 @@ export default function Orb({ stage, reduce }: { stage: number; reduce: boolean 
       <motion.div
         className={'os-orb' + (risk ? ' risk' : '') + (transparent ? ' glass' : '')}
         animate={{ scale: operating ? 0.6 : 0.86 + fill * 0.22, x: orbX, y: orbY }}
-        transition={{ duration: 1.4, ease: EASE }}
+        transition={{ duration: 0.9, ease: EASE }}
       >
         <div className="os-orb-aura" />
         <div className="os-orb-core" />

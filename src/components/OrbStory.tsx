@@ -26,8 +26,8 @@ const BEATS: Beat[] = [
   {
     eyebrow: 'The memory layer for your company',
     head: 'Your company should know everything.',
-    sub: 'Noise connects Gmail, Outlook, Slack, Teams, WhatsApp, Telegram, Drive and Calendar, then turns everything into one searchable company brain.',
-    audience: 'For founders, sales teams, agencies and customer-facing companies.',
+    sub: 'Noise gives your company a memory. It remembers what was said, promised, decided and forgotten across email, chat, meetings and files.',
+    audience: 'Connect Gmail, Outlook, Slack, Teams, WhatsApp, Telegram, Drive and Calendar.',
     cta: true,
   },
   { kicker: '01 — Connect', left: 'Connect every channel once', right: 'Every conversation becomes searchable', note: 'Gmail, Slack, Teams, WhatsApp, Drive and more — connected once, never again.' },

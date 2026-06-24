@@ -1024,8 +1024,11 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 
 /* ===================== ORB STORY (scroll-driven narrative) ===================== */
 .os-story{position:relative}
-.os-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
-.os-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.os-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center;contain:layout paint}
+/* the background (masked grid + big blurred glow) is static — promote it to its
+   own GPU layer so scrolling composites a cached bitmap instead of re-rasterising
+   the 46px blur + radial mask on every frame. */
+.os-bg{position:absolute;inset:0;z-index:0;pointer-events:none;transform:translateZ(0);will-change:transform}
 .os-grid{position:absolute;inset:0;opacity:.4;
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:66px 66px;
@@ -1038,7 +1041,7 @@ h3{font-size:22px;letter-spacing:-.02em;font-weight:600}
 /* the orb field — a full-stage canvas; everything is positioned around centre */
 .os-orb-field{position:absolute;inset:0}
 .os-orb{position:absolute;left:50%;top:50%;translate:-50% -50%;width:clamp(176px,24vw,280px);aspect-ratio:1;border-radius:50%;
-  display:grid;place-items:center;will-change:transform}
+  display:grid;place-items:center;will-change:transform;backface-visibility:hidden}
 .os-orb-core{position:absolute;inset:0;border-radius:50%;
   background:radial-gradient(circle at 50% 40%,#FFFFFF 0%,#EAEBFF 12%,#BFC4FF 30%,#6E63FF 56%,#3BA0FF 80%,transparent 92%);
   box-shadow:0 0 70px -6px rgba(123,104,238,.6),inset 0 0 26px rgba(255,255,255,.25);
